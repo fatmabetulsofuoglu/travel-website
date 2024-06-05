@@ -10,7 +10,7 @@
         margin: 0;
         padding: 0;
         overflow-x: hidden;
-        background-color: #f4f4f4; /* Body arka plan rengi eklendi */
+        background-color: #f4f4f4;
       }
 
       header {
@@ -52,28 +52,33 @@
 
       .hero {
         margin-top: -100px;
-        background: url("https://letcheck.b-cdn.net/2529/clqlzpa2w05rdmj8zbxeabpsf.jpg")
+        background: url("https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg")
           no-repeat center center/cover;
         height: 100vh;
         display: flex;
+        justify-content: start;
         align-items: center;
         color: #fff;
+        position: relative;
       }
 
       .hero-content {
+        border-radius: 30px;
+        padding: 40px 50px;
         width: 50%;
+        text-align: center;
         margin-left: 10%;
         animation: fadeIn 2s ease-out;
       }
 
       .hero-content h1 {
-        font-size: 48px;
+        font-size: 52px;
         margin-bottom: 20px;
         animation: slideInLeft 1s ease-out;
       }
 
       .hero-content p {
-        font-size: 24px;
+        font-size: 14px;
         margin-bottom: 20px;
         animation: slideInLeft 1.5s ease-out;
       }
@@ -86,6 +91,41 @@
         color: white;
         cursor: pointer;
         animation: slideInLeft 2s ease-out;
+      }
+
+      .thumbnail-container {
+        position: absolute;
+        bottom: 20px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .thumbnail {
+        width: 60px; /* Yuvarlakların büyüklüğü artırıldı */
+        height: 60px; /* Yuvarlakların büyüklüğü artırıldı */
+        border-radius: 50%;
+        margin: 0 10px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        animation: scale 10s infinite; /* Hareket animasyonunu tanımladık */
+      }
+
+      .thumbnail:hover {
+        transform: scale(1.5); 
+        transition: transform 1s; 
+      }
+
+      @keyframes moveHorizontal {
+        0% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(20px);
+        }
+        100% {
+          transform: translateX(0);
+        }
       }
 
       @keyframes fadeIn {
@@ -111,7 +151,7 @@
       section {
         padding: 60px 20px;
         min-height: 100vh;
-        margin-top: 60px; /* header alanına yer açmak için */
+        margin-top: 60px;
       }
 
       #home {
@@ -175,21 +215,43 @@
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
     <script type="text/babel">
       const App = () => {
+        const [thumbnailClicked, setThumbnailClicked] = React.useState(false);
+
+        const handleThumbnailClick = (src) => {
+          setThumbnailClicked(true);
+          setBackgroundImage(src);
+          setTimeout(() => {
+            setThumbnailClicked(false);
+          }, 1000);
+        };
+        const [backgroundImage, setBackgroundImage] = React.useState(
+          "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg"
+        );
+
         const handleScroll = () => {
           const header = document.querySelector("header");
           if (window.scrollY > 0) {
             header.classList.add("sticky");
-            header.classList.remove(
-              "default"
-            ); /* sticky olduğunda default sınıfı kaldır */
+            header.classList.remove("default");
           } else {
             header.classList.remove("sticky");
-            header.classList.add(
-              "default"
-            ); /* sticky olduğunda default sınıfını ekle */
+            header.classList.add("default");
           }
         };
         window.addEventListener("scroll", handleScroll);
+
+        const scrollToSection = (sectionId) => {
+          const section = document.getElementById(sectionId);
+          section.scrollIntoView({ behavior: "smooth" });
+        };
+
+        const thumbnails = [
+          "https://images6.alphacoders.com/420/420222.jpg",
+          "https://images7.alphacoders.com/552/552180.jpg",
+          "https://images8.alphacoders.com/591/591850.jpg",
+          "https://free4kwallpapers.com/uploads/originals/2021/09/07/super-moon-over-istanbul-wallpaper.jpg",
+          "https://img.goodfon.com/original/1920x1080/f/f3/galata-tower-turkey-istanbul-moon.jpg",
+        ];
 
         return (
           <div className="App">
@@ -199,27 +261,87 @@
                   <img
                     src="https://www.motifsoft.com/wp-content/uploads/2023/11/MotifSoft-logo-colored-1.png"
                     alt="Logo"
-                    style={{ width: "200px", height: "auto" }} // Logoyu küçültmek için boyut ayarları eklendi
+                    style={{ width: "200px", height: "auto" }}
                   />
                 </a>
               </div>
               <nav>
-                <a href="#about">About</a>
-                <a href="#discover">Discover</a>
-                <a href="#promo">Promo</a>
-                <a href="#package">Package</a>
+                <a
+                  href="#about"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("about");
+                  }}
+                >
+                  About
+                </a>
+                <a
+                  href="#discover"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("discover");
+                  }}
+                >
+                  Discover
+                </a>
+                <a
+                  href="#promo"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("promo");
+                  }}
+                >
+                  Promo
+                </a>
+                <a
+                  href="#package"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("package");
+                  }}
+                >
+                  Package
+                </a>
               </nav>
             </header>
-            <section className="hero">
+            <section
+              className="hero"
+              style={{ backgroundImage: `url(${backgroundImage})` }}
+            >
               <div className="hero-content">
                 <h1>Welcome to Istanbul, the pearl of the world!</h1>
-                <p>Sizlere en iyi hizmeti sunmak için buradayız.</p>
-                <button>Hizmetlerimiz</button>
+                <p>
+                  <i>
+                    Spread across two continents and between two seas, Istanbul
+                    is a city of empires past. The Hagia Sophia, Blue Mosque,
+                    Topkapi Palace, and Galata Tower are just some of the many
+                    historic structures scattered throughout the city. Sip a
+                    Turkish tea as you float between Europe and Asia on a ferry
+                    and watch the palaces, mansions, and modern museums pass by.
+                  </i>
+                </p>
+                <p>— Katie Nadworny</p>
+                <button
+                  onClick={() => {
+                    const aboutSection = document.getElementById("about");
+                    aboutSection.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Scroll Down
+                </button>
               </div>
-            </section>
-            <section id="home">
-              <h1>Anasayfa</h1>
-              <p>Bu, anasayfa bölümü.</p>
+              <div className="thumbnail-container">
+                {thumbnails.map((src, index) => (
+                  <img
+                    key={index}
+                    src={src}
+                    alt={`Thumbnail ${index + 1}`}
+                    className="thumbnail"
+                    onClick={() => handleThumbnailClick(src)} // Yeni fonksiyon ile değiştirildi
+                    style={{ width: "200px", height: "200px" }}
+                  />
+                ))}
+              </div>
             </section>
             <section id="about">
               <h1>Hakkında</h1>
