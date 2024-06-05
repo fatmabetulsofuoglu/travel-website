@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Page Tasarımı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 0;
+        }
+
+        header nav a:hover {
+            color: #ff6347;
+        }
+
+        section {
+            padding: 60px 20px;
+            min-height: 100vh;
+            margin-top: 60px; /* header alanına yer açmak için */
+        }
+
+        #home {
+            background: #f4f4f4;
+        }
+
+        #about {
+            background: #e2e2e2;
+        }
+
+        #services {
+            background: #ccc;
+        }
+
+        #contact {
+            background: #b4b4b4;
+        }
+
+        /* Mobil uyumlu stil */
+        @media (max-width: 768px) {
+            header nav a {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        const App = () => {
+            return (
+                <div className="App">
+                    <header>
+                        <nav>
+                            <a href="#home">Anasayfa</a>
+                            <a href="#about">Hakkında</a>
+                            <a href="#services">Hizmetler</a>
+                            <a href="#contact">İletişim</a>
+                        </nav>
+                    </header>
+                    <section id="home">
+                        <h1>Anasayfa</h1>
+                        <p>Bu, anasayfa bölümü.</p>
+                    </section>
+                    <section id="about">
+                        <h1>Hakkında</h1>
+                        <p>Bu, hakkında bölümü.</p>
+                    </section>
+                    <section id="services">
+                        <h1>Hizmetler</h1>
+                        <p>Bu, hizmetler bölümü.</p>
+                    </section>
+                    <section id="contact">
+                        <h1>İletişim</h1>
+                        <p>Bu, iletişim bölümü.</p>
+                    </section>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
