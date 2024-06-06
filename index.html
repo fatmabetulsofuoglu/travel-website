@@ -13,6 +13,27 @@
         background-color: #f4f4f4;
       }
 
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        text-align: center;
+      }
+
+      .handwriting {
+        font-family: "Brush Script MT", cursive;
+        margin-top: -10px;
+        font-size: 36px;
+        text-align: center;
+      }
+
+      p {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
       header {
         background: transparent;
         color: #fff;
@@ -171,34 +192,36 @@
       }
 
       .discover-content {
+        padding-top: 50px;
         display: flex;
-        overflow-x: auto;
+        overflow: hidden;
         white-space: nowrap;
+        justify-content: space-around;
       }
 
       .discover-content .box {
-        margin-right: 20px;
-      }
-
-      .box {
         display: inline-block;
-        width: calc(20% - 20px);
-        margin-right: 20px;
+        width: calc(20%);
         box-sizing: border-box;
-        text-align: end;
+        text-align: center;
         animation: slideRightToLeft 5s linear infinite;
       }
 
+      .discover-content .box:hover {
+        transform: scale(1.2);
+        transition: transform 0.5s ease-in-out;
+      }
+
       .box img {
-        width: 400px;
-        height: 400px;
+        width: 230px;
+        height: 230px;
         overflow: hidden;
         border: #f4f4f4 10px solid;
         border-radius: 90%;
       }
 
       .text {
-        padding: 10px;
+        padding: 15px;
       }
 
       .text h3 {
@@ -368,41 +391,6 @@
               "https://panel.millisaraylar.gov.tr//uploads/lokasyonlar/05645bd6-ee5b-4525-acc2-c0f6b2eea3f1.webp",
             title: "Dolmabahçe Palace",
           },
-          {
-            imgPath:
-              "https://blog.midtown-hotel.com/wp-content/uploads/2015/07/bogaz-koprusu.jpg",
-            title: "Bosphorus Bridge",
-          },
-          {
-            imgPath:
-              "https://cdn2.enuygun.com/media/lib/1200x675/uploads/image/ayasofya-45590.webp",
-            title: "Hagia Sophia",
-          },
-          {
-            imgPath:
-              "https://istanbultourstudio.s3.amazonaws.com/uploads/sight/cover_photo/14/Blue_Mosque_Istanbul_2.jpg",
-            title: "Blue Mosque",
-          },
-          {
-            imgPath:
-              "https://dq5r178u4t83b.cloudfront.net/wp-content/uploads/sites/175/2022/02/14154605/6-Topkapi-Palace_thumb.jpg",
-            title: "Topkapı Palace",
-          },
-          {
-            imgPath:
-              "https://yerebatan.com/wp-content/uploads/2022/12/yerebatan-sergi-ogu5749-min-FX7w-scaled-1.jpg",
-            title: "Basilica Cistern",
-          },
-          {
-            imgPath:
-              "https://panel.millisaraylar.gov.tr//uploads/lokasyonlar/05645bd6-ee5b-4525-acc2-c0f6b2eea3f1.webp",
-            title: "Dolmabahçe Palace",
-          },
-          {
-            imgPath:
-              "https://blog.midtown-hotel.com/wp-content/uploads/2015/07/bogaz-koprusu.jpg",
-            title: "Bosphorus Bridge",
-          },
         ];
 
         const discoverBoxesImage = [
@@ -553,7 +541,8 @@
               <p>Bu, hakkında bölümü.</p>
             </section>
             <section id="discover">
-              <h1>Discover</h1>
+              <h2>Discover</h2>
+              <p className="handwriting">Must-See Attractions of Istanbul</p>
               <div className="discover-content">
                 {discoverCollection.map((item, index) => (
                   <div key={index} className="box">
