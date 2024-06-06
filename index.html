@@ -169,37 +169,6 @@
           transform: translateY(0);
         }
       }
-      @keyframes moveHorizontal {
-        0% {
-          transform: translateX(0);
-        }
-        50% {
-          transform: translateX(20px);
-        }
-        100% {
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes slideInLeft {
-        from {
-          transform: translateX(-50px);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
 
       section {
         padding: 60px 20px;
@@ -318,15 +287,20 @@
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
     <script type="text/babel">
+
       const App = () => {
         const [isScrolled, setIsScrolled] = React.useState(false);
+
         const [backgroundImage, setBackgroundImage] = React.useState(
           "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg"
         );
+        
         const [currentThumbnailIndex, setCurrentThumbnailIndex] =
           React.useState(0);
 
         const [currentSlide, setCurrentSlide] = React.useState(0);
+
+        
 
         const thumbnails = [
           "https://images6.alphacoders.com/420/420222.jpg",
@@ -337,23 +311,16 @@
           "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg",
         ];
 
-        const nextSlide = () => {
-          setCurrentSlide((prevSlide) =>
-            prevSlide === discoverBoxesImage.length - 1 ? 0 : prevSlide + 1
-          );
-        };
-
-        const prevSlide = () => {
-          setCurrentSlide((prevSlide) =>
-            prevSlide === 0 ? discoverBoxesImage.length - 1 : prevSlide - 1
-          );
-        };
         
+
         const handleThumbnailClick = (index) => {
           setCurrentThumbnailIndex(index);
           setBackgroundImage(thumbnails[index]);
         };
 
+        const goToNextPicture = () => {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        };
         React.useEffect(() => {
           const interval = setInterval(() => {
             setCurrentThumbnailIndex(
@@ -382,6 +349,39 @@
           section.scrollIntoView({ behavior: "smooth" });
         };
 
+        const discoverCollection = [
+          {
+            imgPath:
+              "https://cdn2.enuygun.com/media/lib/1200x675/uploads/image/ayasofya-45590.webp",
+            title: "Hagia Sophia",
+          },
+          {
+            imgPath:
+              "https://istanbultourstudio.s3.amazonaws.com/uploads/sight/cover_photo/14/Blue_Mosque_Istanbul_2.jpg",
+            title: "Blue Mosque",
+          },
+          {
+            imgPath:
+              "https://dq5r178u4t83b.cloudfront.net/wp-content/uploads/sites/175/2022/02/14154605/6-Topkapi-Palace_thumb.jpg",
+            title: "Topkapı Palace",
+          },
+          {
+            imgPath:
+              "https://yerebatan.com/wp-content/uploads/2022/12/yerebatan-sergi-ogu5749-min-FX7w-scaled-1.jpg",
+            title: "Basilica Cistern",
+          },
+          {
+            imgPath:
+              "https://panel.millisaraylar.gov.tr//uploads/lokasyonlar/05645bd6-ee5b-4525-acc2-c0f6b2eea3f1.webp",
+            title: "Dolmabahçe Palace",
+          },
+          {
+            imgPath:
+              "https://blog.midtown-hotel.com/wp-content/uploads/2015/07/bogaz-koprusu.jpg",
+            title: "Bosphorus Bridge",
+          },
+        ];
+
         const discoverBoxesImage = [
           "https://cdn2.enuygun.com/media/lib/1200x675/uploads/image/ayasofya-45590.webp",
           "https://dq5r178u4t83b.cloudfront.net/wp-content/uploads/sites/175/2022/02/14154605/6-Topkapi-Palace_thumb.jpg",
@@ -398,13 +398,17 @@
           "Bosphorus Bridge",
         ];
 
-        const discoverBoxesDescriptions = [
-          "This is some text for Hagia Sophia.",
-          "This is some text for Topkapı Palace.",
-          "This is some text for Basilica Cistern.",
-          "This is some text for Dolmabahçe Palace.",
-          "This is some text for Bosphorus Bridge.",
-        ];
+        const scrollLeft = () => {
+          setCurrentSlide((prevSlide) => (prevSlide === 0 ? 0 : prevSlide - 1));
+        };
+
+        const scrollRight = () => {
+          setCurrentSlide((prevSlide) =>
+            prevSlide === discoverBoxesImage.length - 1
+              ? prevSlide
+              : prevSlide + 1
+          );
+        };
 
         return (
           <div className="App">
@@ -540,6 +544,17 @@
             <section id="discover">
               <h1>Discover</h1>
               <div className="discover-content">
+                <div class="scroll-button left" onclick="scrollLeft()">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path fill="none" d="M0 0h24v24H0V0z" />
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                  </svg>
+                </div>
                 {discoverBoxesImage.map((image, index) => (
                   <div
                     key={index}
@@ -547,35 +562,26 @@
                       index === currentSlide ? "active-slide" : ""
                     }`}
                   >
-                    <img src={image} alt={`Image ${index + 1}`} />
+                    <img
+                      src={discoverCollection[index].imgPath}
+                      alt={`Image ${discoverCollection[index].imgPath + 1}`}
+                    />
                     <div className="text">
-                      <h3>{discoverBoxesTitles[index]}</h3>
-                      <p>{discoverBoxesDescriptions[index]}</p>
+                      <h3>{discoverCollection[index].title}</h3>
                     </div>
                   </div>
                 ))}
-              </div>
-              <div className="scroll-button left" onClick={prevSlide}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                >
-                  <path fill="none" d="M0 0h24v24H0V0z" />
-                  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-                </svg>
-              </div>
-              <div className="scroll-button right" onClick={nextSlide}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                >
-                  <path fill="none" d="M0 0h24v24H0V0z" />
-                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-                </svg>
+                <div class="scroll-button right" onclick="scrollRight()">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path fill="none" d="M0 0h24v24H0V0z" />
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                  </svg>
+                </div>
               </div>
             </section>
             <section id="promo">
