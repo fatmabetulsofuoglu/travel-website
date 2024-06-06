@@ -27,6 +27,11 @@
         transition: background-color 0.3s;
       }
 
+      header .logo img {
+        width: 200px;
+        height: auto;
+      }
+
       header nav a {
         color: #fff;
         text-decoration: none;
@@ -52,19 +57,22 @@
 
       .hero {
         margin-top: -100px;
-        background: url("https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg")
+        background: url("https://images6.alphacoders.com/420/420222.jpg")
           no-repeat center center/cover;
         height: 100vh;
         display: flex;
         justify-content: center;
+        text-align: center;
         align-items: center;
         color: #fff;
         position: relative;
+        transition: background-image 2s linear, transform 2s linear;
       }
 
       .hero::before {
         content: "";
         position: absolute;
+        text-align: center;
         top: 0;
         left: 0;
         width: 100%;
@@ -74,25 +82,24 @@
       }
 
       .hero-content {
-        border-radius: 20px;
-        padding: 40px;
-        width: 70%;
         text-align: center;
+        padding: 20px;
+        width: 60%;
         position: relative;
         z-index: 2;
-        animation: fadeIn 2s ease-out;
+        animation: 3s linear 1s infinite running slidein;
       }
 
       .hero-content h1 {
         font-size: 3rem;
         margin-bottom: 20px;
-        animation: slideInLeft 1s ease-out;
+        animation: 3s linear 1s infinite running slidein;
       }
 
       .hero-content p {
         font-size: 1.2rem;
         margin-bottom: 20px;
-        animation: slideInLeft 1.5s ease-out;
+        animation: 3s linear 1s infinite running slidein;
       }
 
       .hero-content button {
@@ -101,12 +108,12 @@
         border: none;
         color: white;
         cursor: pointer;
-        animation: slideInLeft 2s ease-out;
+        animation: 3s linear 1s infinite running slidein;
       }
 
       .thumbnail-container {
         position: absolute;
-        bottom: 20px;
+        bottom: 100px;
         display: flex;
         justify-content: center;
         width: 100%;
@@ -114,20 +121,31 @@
       }
 
       .thumbnail {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         border-radius: 50%;
         margin: 0 10px;
         cursor: pointer;
         transition: transform 0.2s;
-        animation: scale 10s infinite;
+        animation: 3s linear 1s infinite running slidein;
       }
 
       .thumbnail:hover {
         transform: scale(1.5);
-        transition: transform 1s;
+        transition: transform 2s ease-in-out;
       }
 
+      .active-thumbnail {
+        transform: scale(1.5);
+        transition: transform 2s ease-in-out;
+      }
+
+      @media (max-width: 768px) {
+        .thumbnail {
+          width: 50px; /* Mobilde küçük boyut */
+          height: 50px; /* Mobilde küçük boyut */
+        }
+      }
       .scroll-down-btn {
         background-color: transparent;
         border: none;
@@ -215,7 +233,19 @@
           align-items: flex-start;
         }
 
+        header .logo {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 200px; 
+        }
+
+        header .logo img {
+          max-width: 100%;
+          height: auto;
+        }
         header nav {
+          padding-top: 15px;
           width: 100%;
           justify-content: center;
         }
@@ -250,44 +280,12 @@
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
     <script type="text/babel">
       const App = () => {
-        const [thumbnailClicked, setThumbnailClicked] = React.useState(false);
         const [isScrolled, setIsScrolled] = React.useState(false);
-        const handleThumbnailClick = (src) => {
-          setThumbnailClicked(true);
-          setBackgroundImage(src);
-          setTimeout(() => {
-            setThumbnailClicked(false);
-          }, 1000);
-        };
         const [backgroundImage, setBackgroundImage] = React.useState(
           "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg"
         );
-
-        const handleScroll = () => {
-          const header = document.querySelector("header");
-          if (window.scrollY > 0) {
-            header.classList.add("sticky");
-            header.classList.remove("default");
-          } else {
-            header.classList.remove("sticky");
-            header.classList.add("default");
-          }
-        };
-        window.addEventListener("scroll", handleScroll);
-
-        const scrollToSection = (sectionId) => {
-          const section = document.getElementById(sectionId);
-          section.scrollIntoView({ behavior: "smooth" });
-        };
-
-        React.useEffect(() => {
-          const handleScroll = () => {
-            setIsScrolled(window.scrollY > 0);
-          };
-
-          window.addEventListener("scroll", handleScroll);
-          return () => window.removeEventListener("scroll", handleScroll);
-        }, []);
+        const [currentThumbnailIndex, setCurrentThumbnailIndex] =
+          React.useState(0);
 
         const thumbnails = [
           "https://images6.alphacoders.com/420/420222.jpg",
@@ -298,9 +296,42 @@
           "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg",
         ];
 
+        const handleThumbnailClick = (index) => {
+          setCurrentThumbnailIndex(index);
+          setBackgroundImage(thumbnails[index]);
+        };
+
+        React.useEffect(() => {
+          const interval = setInterval(() => {
+            setCurrentThumbnailIndex(
+              (prevIndex) => (prevIndex + 1) % thumbnails.length
+            );
+          }, 4000);
+
+          return () => clearInterval(interval);
+        }, [thumbnails.length]);
+
+        React.useEffect(() => {
+          setBackgroundImage(thumbnails[currentThumbnailIndex]);
+        }, [currentThumbnailIndex, thumbnails]);
+
+        const handleScroll = () => {
+          setIsScrolled(window.scrollY > 0);
+        };
+
+        React.useEffect(() => {
+          window.addEventListener("scroll", handleScroll);
+          return () => window.removeEventListener("scroll", handleScroll);
+        }, []);
+
+        const scrollToSection = (sectionId) => {
+          const section = document.getElementById(sectionId);
+          section.scrollIntoView({ behavior: "smooth" });
+        };
+
         return (
           <div className="App">
-            <header className={`default ${scrollY > 0 ? "sticky" : ""}`}>
+            <header className={`default ${isScrolled ? "sticky" : ""}`}>
               <div className="logo">
                 <a href="http://127.0.0.1:5500/travel-website/index.html">
                   <img
@@ -310,7 +341,6 @@
                         : "https://www.motifsoft.com/wp-content/uploads/2023/11/MotifSoft-logo-white-colored-1.png"
                     }
                     alt="Logo"
-                    style={{ width: "200px", height: "auto" }}
                   />
                 </a>
               </div>
@@ -381,7 +411,7 @@
                   Scroll Up
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24: 24 24"
+                    viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -395,14 +425,15 @@
                 </button>
               </div>
               <div className="thumbnail-container">
-                {thumbnails.map((src, index) => (
+                {thumbnails.map((thumbnail, index) => (
                   <img
                     key={index}
-                    src={src}
+                    src={thumbnail}
                     alt={`Thumbnail ${index + 1}`}
-                    className="thumbnail"
-                    onClick={() => handleThumbnailClick(src)}
-                    style={{ width: "200px", height: "200px" }}
+                    className={`thumbnail ${
+                      index === currentThumbnailIndex ? "active-thumbnail" : ""
+                    }`}
+                    onClick={() => handleThumbnailClick(index)}
                   />
                 ))}
               </div>
@@ -426,7 +457,6 @@
           </div>
         );
       };
-
       ReactDOM.render(<App />, document.getElementById("root"));
     </script>
   </body>
