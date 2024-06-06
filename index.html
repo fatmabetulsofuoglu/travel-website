@@ -140,12 +140,6 @@
         transition: transform 2s ease-in-out;
       }
 
-      @media (max-width: 768px) {
-        .thumbnail {
-          width: 50px; /* Mobilde küçük boyut */
-          height: 50px; /* Mobilde küçük boyut */
-        }
-      }
       .scroll-down-btn {
         background-color: transparent;
         border: none;
@@ -156,18 +150,6 @@
         width: 24px;
         height: 24px;
         animation: moveUpDown 2s infinite;
-      }
-
-      @keyframes moveUpDown {
-        0% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(5px);
-        }
-        100% {
-          transform: translateY(0);
-        }
       }
 
       section {
@@ -235,6 +217,8 @@
         background: #999;
       }
 
+      /* Mobil */
+
       @media (max-width: 768px) {
         header {
           flex-direction: column;
@@ -277,6 +261,23 @@
         .hero-content p {
           font-size: 18px;
         }
+
+        .thumbnail {
+          width: 50px;
+          height: 50px;
+        }
+      }
+
+      @keyframes moveUpDown {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(5px);
+        }
+        100% {
+          transform: translateY(0);
+        }
       }
     </style>
   </head>
@@ -287,20 +288,14 @@
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
     <script type="text/babel">
-
       const App = () => {
         const [isScrolled, setIsScrolled] = React.useState(false);
+        const [currentThumbnailIndex, setCurrentThumbnailIndex] =
+          React.useState(0);
 
         const [backgroundImage, setBackgroundImage] = React.useState(
           "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg"
         );
-        
-        const [currentThumbnailIndex, setCurrentThumbnailIndex] =
-          React.useState(0);
-
-        const [currentSlide, setCurrentSlide] = React.useState(0);
-
-        
 
         const thumbnails = [
           "https://images6.alphacoders.com/420/420222.jpg",
@@ -310,8 +305,6 @@
           "https://img.goodfon.com/original/1920x1080/f/f3/galata-tower-turkey-istanbul-moon.jpg",
           "https://a.travel-assets.com/findyours-php/viewfinder/images/res70/507000/507836-istanbul.jpg",
         ];
-
-        
 
         const handleThumbnailClick = (index) => {
           setCurrentThumbnailIndex(index);
@@ -380,6 +373,36 @@
               "https://blog.midtown-hotel.com/wp-content/uploads/2015/07/bogaz-koprusu.jpg",
             title: "Bosphorus Bridge",
           },
+          {
+            imgPath:
+              "https://cdn2.enuygun.com/media/lib/1200x675/uploads/image/ayasofya-45590.webp",
+            title: "Hagia Sophia",
+          },
+          {
+            imgPath:
+              "https://istanbultourstudio.s3.amazonaws.com/uploads/sight/cover_photo/14/Blue_Mosque_Istanbul_2.jpg",
+            title: "Blue Mosque",
+          },
+          {
+            imgPath:
+              "https://dq5r178u4t83b.cloudfront.net/wp-content/uploads/sites/175/2022/02/14154605/6-Topkapi-Palace_thumb.jpg",
+            title: "Topkapı Palace",
+          },
+          {
+            imgPath:
+              "https://yerebatan.com/wp-content/uploads/2022/12/yerebatan-sergi-ogu5749-min-FX7w-scaled-1.jpg",
+            title: "Basilica Cistern",
+          },
+          {
+            imgPath:
+              "https://panel.millisaraylar.gov.tr//uploads/lokasyonlar/05645bd6-ee5b-4525-acc2-c0f6b2eea3f1.webp",
+            title: "Dolmabahçe Palace",
+          },
+          {
+            imgPath:
+              "https://blog.midtown-hotel.com/wp-content/uploads/2015/07/bogaz-koprusu.jpg",
+            title: "Bosphorus Bridge",
+          },
         ];
 
         const discoverBoxesImage = [
@@ -397,18 +420,6 @@
           "Dolmabahçe Palace",
           "Bosphorus Bridge",
         ];
-
-        const scrollLeft = () => {
-          setCurrentSlide((prevSlide) => (prevSlide === 0 ? 0 : prevSlide - 1));
-        };
-
-        const scrollRight = () => {
-          setCurrentSlide((prevSlide) =>
-            prevSlide === discoverBoxesImage.length - 1
-              ? prevSlide
-              : prevSlide + 1
-          );
-        };
 
         return (
           <div className="App">
@@ -544,44 +555,14 @@
             <section id="discover">
               <h1>Discover</h1>
               <div className="discover-content">
-                <div class="scroll-button left" onclick="scrollLeft()">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                  >
-                    <path fill="none" d="M0 0h24v24H0V0z" />
-                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-                  </svg>
-                </div>
-                {discoverBoxesImage.map((image, index) => (
-                  <div
-                    key={index}
-                    className={`box ${
-                      index === currentSlide ? "active-slide" : ""
-                    }`}
-                  >
-                    <img
-                      src={discoverCollection[index].imgPath}
-                      alt={`Image ${discoverCollection[index].imgPath + 1}`}
-                    />
+                {discoverCollection.map((item, index) => (
+                  <div key={index} className="box">
+                    <img src={item.imgPath} alt={`Image ${index + 1}`} />
                     <div className="text">
-                      <h3>{discoverCollection[index].title}</h3>
+                      <h3>{item.title}</h3>
                     </div>
                   </div>
                 ))}
-                <div class="scroll-button right" onclick="scrollRight()">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                  >
-                    <path fill="none" d="M0 0h24v24H0V0z" />
-                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-                  </svg>
-                </div>
               </div>
             </section>
             <section id="promo">
