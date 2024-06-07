@@ -193,7 +193,7 @@
       }
 
       .discover-content {
-        padding: 0px 200px;
+        padding: 0px 200px; /* Kenarlarda boşluk bırak */
         display: flex;
         overflow: hidden;
         white-space: nowrap;
@@ -310,52 +310,29 @@
 
         .discover-content {
           display: flex;
+          justify-content:space-between;
           flex-wrap: wrap;
-          justify-content: center;
-          padding: 0;
-          margin: 0 -10px; /* Kenar boşlukları eklemek için */
+          margin-left: 0px;
         }
 
         .discover-content .box {
-          width: calc(50% - 20px); /* Kutu genişliği yarıya indirildi */
-          margin: 10px;
-          position: relative;
-          overflow: hidden;
-          border-radius: 50%; /* Resimlerin tamamını yuvarlak yap */
-          transition: transform 0.3s ease-in-out;
+          padding: 0px;
+          width: calc(100%);
+          box-sizing: border-box;
         }
 
-        .box img {
-          width: 100%;
-          height: auto;
+        .discover-content .box:hover {
+            transform: scale(0.85) rotate(3deg);
         }
 
-        .box:hover {
-          transform: scale(1.1); /* Resim 1.1 scale büyüsün */
-          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        .discover-content .box:nth-child(2n + 1) {
+          margin-left: -100px;
+          padding: 0px;
         }
 
-        .box .text {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          background-color: rgba(0, 0, 0, 0.7);
-          padding: 10px;
-          color: white;
-          text-align: center;
-          opacity: 0;
-          transition: opacity 0.3s ease-in-out;
-          border-radius: 0 0 50% 50%; /* Sadece alt köşeleri yuvarlat */
-        }
-
-        .box:hover .text {
-          opacity: 1;
-        }
-
-        .text h3 {
-          font-size: 16px;
-          margin: 0;
+        .discover-content .box:nth-child(2n) {
+          margin: -100px 0px;
+          padding: 0px;
         }
       }
 
