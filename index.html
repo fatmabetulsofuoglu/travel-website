@@ -198,7 +198,7 @@
         overflow: hidden;
         white-space: nowrap;
         justify-content: space-around;
-        margin-left: -100px;
+        margin-left: -180px;
       }
 
       .discover-content .box {
@@ -237,7 +237,6 @@
         white-space: nowrap;
       }
 
-      /* .box üzerine gelindiğinde .text görünür */
       .box:hover .text {
         display: block;
       }
@@ -310,42 +309,53 @@
         }
 
         .discover-content {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          justify-items: center;
-          margin-left: -100px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          padding: 0;
+          margin: 0 -10px; /* Kenar boşlukları eklemek için */
         }
 
         .discover-content .box {
-          width: 100%;
-          animation: none;
-        }
-
-        .discover-content .box:hover {
-          transform: scale(1.1);
-          transition: transform 0.5s ease-in-out;
+          width: calc(50% - 20px); /* Kutu genişliği yarıya indirildi */
+          margin: 10px;
+          position: relative;
+          overflow: hidden;
+          border-radius: 50%; /* Resimlerin tamamını yuvarlak yap */
+          transition: transform 0.3s ease-in-out;
         }
 
         .box img {
-          width: 200px;
-          height: 200px;
-          overflow: hidden;
-          border: #fff 10px solid;
-          border-radius: 90%;
+          width: 100%;
+          height: auto;
         }
 
-        .text {
-          padding-top: 10px;
-          margin-left: 50px;
+        .box:hover {
+          transform: scale(1.1); /* Resim 1.1 scale büyüsün */
+          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .box .text {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.7);
+          padding: 10px;
+          color: white;
+          text-align: center;
+          opacity: 0;
+          transition: opacity 0.3s ease-in-out;
+          border-radius: 0 0 50% 50%; /* Sadece alt köşeleri yuvarlat */
+        }
+
+        .box:hover .text {
+          opacity: 1;
         }
 
         .text h3 {
-          font-size: 14px;
-          margin-top: 0;
-        }
-
-        .text p {
-          margin-bottom: 0;
+          font-size: 16px;
+          margin: 0;
         }
       }
 
