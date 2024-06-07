@@ -21,6 +21,7 @@
       h6 {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         text-align: center;
+        font-size: 24px;
       }
 
       .handwriting {
@@ -188,18 +189,20 @@
       }
 
       #discover {
-        background: #ccc;
+        background: #f4f4f4;
       }
 
       .discover-content {
-        padding-top: 50px;
+        padding: 0px 200px;
         display: flex;
         overflow: hidden;
         white-space: nowrap;
         justify-content: space-around;
+        margin-left: -100px;
       }
 
       .discover-content .box {
+        padding: 25px 0px;
         display: inline-block;
         width: calc(20%);
         box-sizing: border-box;
@@ -208,23 +211,39 @@
       }
 
       .discover-content .box:hover {
-        transform: scale(1.2);
+        transform: scale(1.1);
         transition: transform 0.5s ease-in-out;
       }
 
       .box img {
-        width: 230px;
-        height: 230px;
+        width: 400px;
+        height: 400px;
         overflow: hidden;
-        border: #f4f4f4 10px solid;
+        border: #fff 10px solid;
         border-radius: 90%;
       }
 
-      .text {
-        padding: 15px;
+      .box .text {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px 0px 15px;
+        margin-left: 80px;
+        border-radius: 5px;
+        white-space: nowrap;
+      }
+
+      /* .box üzerine gelindiğinde .text görünür */
+      .box:hover .text {
+        display: block;
       }
 
       .text h3 {
+        font-size: 16px;
         margin-top: 0;
       }
 
@@ -288,6 +307,45 @@
         .thumbnail {
           width: 50px;
           height: 50px;
+        }
+
+        .discover-content {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          justify-items: center;
+          margin-left: -100px;
+        }
+
+        .discover-content .box {
+          width: 100%;
+          animation: none;
+        }
+
+        .discover-content .box:hover {
+          transform: scale(1.1);
+          transition: transform 0.5s ease-in-out;
+        }
+
+        .box img {
+          width: 200px;
+          height: 200px;
+          overflow: hidden;
+          border: #fff 10px solid;
+          border-radius: 90%;
+        }
+
+        .text {
+          padding-top: 10px;
+          margin-left: 50px;
+        }
+
+        .text h3 {
+          font-size: 14px;
+          margin-top: 0;
+        }
+
+        .text p {
+          margin-bottom: 0;
         }
       }
 
@@ -368,13 +426,13 @@
         const discoverCollection = [
           {
             imgPath:
-              "https://cdn2.enuygun.com/media/lib/1200x675/uploads/image/ayasofya-45590.webp",
-            title: "Hagia Sophia",
+              "https://www.galibicocuk.com/wp-content/uploads/2022/10/piri_kalibi_kabri.jpg",
+            title: "Istanbul Central Kulliyyah",
           },
           {
             imgPath:
-              "https://istanbultourstudio.s3.amazonaws.com/uploads/sight/cover_photo/14/Blue_Mosque_Istanbul_2.jpg",
-            title: "Blue Mosque",
+              "https://cdn2.enuygun.com/media/lib/1200x675/uploads/image/ayasofya-45590.webp",
+            title: "Hagia Sophia",
           },
           {
             imgPath:
@@ -542,7 +600,10 @@
             </section>
             <section id="discover">
               <h2>Discover</h2>
-              <p className="handwriting">Must-See Attractions of Istanbul</p>
+              <p>
+                Must-See Attractions of{" "}
+                <span className="handwriting">Istanbul</span>
+              </p>
               <div className="discover-content">
                 {discoverCollection.map((item, index) => (
                   <div key={index} className="box">
