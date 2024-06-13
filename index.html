@@ -242,10 +242,6 @@
         min-height: 100vh;
       }
 
-      #home {
-        background: #f4f4f4;
-      }
-
       #about {
         background: #f4f4f4;
       }
@@ -1118,8 +1114,34 @@
         background: #f4f4f4;
       }
 
-      #package {
-        background: #999;
+      #maps {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #maps h2 {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 30px;
+        color: #2d9596;
+        margin: 30px 5px;
+      }
+
+      #maps .iframe-container {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 90%;
+      }
+
+      #maps iframe {
+        border-radius: 50px;
+        width: 100%;
+        height: 100%;
+        border: none;
       }
 
       /* Mobil */
@@ -1147,7 +1169,7 @@
         }
 
         header nav a {
-          margin: 5px 0;
+          margin: 0px 0px;
           width: 100%;
           text-align: center;
         }
@@ -1356,6 +1378,15 @@
               </div>
               <nav>
                 <a
+                  href="#hero"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("hero");
+                  }}
+                >
+                  Home
+                </a>
+                <a
                   href="#about"
                   onClick={(e) => {
                     e.preventDefault();
@@ -1374,13 +1405,13 @@
                   Discover
                 </a>
                 <a
-                  href="#package"
+                  href="#maps"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection("package");
+                    scrollToSection("maps");
                   }}
                 >
-                  Package
+                  Maps
                 </a>
                 <a
                   href="#contact"
@@ -1396,6 +1427,7 @@
 
             <div className="shapedividers_com-1951">
               <section
+                id="hero"
                 className="hero"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
               >
@@ -1544,9 +1576,11 @@
                 </section>
               </div>
             </div>
-            <section id="package">
-              <h1>Paketler</h1>
-              <p>Bu, paketler bölümü.</p>
+            <section id="maps">
+              <h2 class="text-blk headingText">Guide Maps</h2>
+              <div class="iframe-container">
+                <iframe src="https://www.google.com/maps/d/embed?mid=1R6BEMIijgYOiajOj04gtdmaVn5SGaLKG&ehbc=2E312F"></iframe>
+              </div>
             </section>
             <section id="contact">
               <h1>contact</h1>
