@@ -13,13 +13,7 @@
         background-color: #f4f4f4;
       }
 
-      *,
-      *:before,
-      *:after {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-      }
+      
       h1,
       h2,
       h3,
@@ -296,10 +290,7 @@
         padding: 10px 50px 10px 50px;
       }
 
-      .mainImg {
-        color: black;
-        width: 100%;
-        height: auto;
+      .iFrame-video {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
@@ -472,12 +463,12 @@
         padding-left: 0px;
       }
 
-      .purpleBox {
+      .commentBox {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         max-width: 430px;
-        background-color: rgb(176, 98, 255);
+        background-color: #265073;
         padding-top: 20px;
         padding-right: 20px;
         padding-bottom: 20px;
@@ -487,7 +478,7 @@
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
         position: absolute;
-        bottom: -35px;
+        bottom: -100px;
         left: -8%;
       }
 
@@ -511,7 +502,7 @@
           max-width: 850px;
         }
 
-        .mainImg {
+        .iFrame-video {
           width: 55%;
           height: auto;
         }
@@ -601,7 +592,7 @@
           justify-content: space-evenly;
         }
 
-        .purpleBox {
+        .commentBox {
           bottom: 10%;
         }
 
@@ -617,13 +608,13 @@
           width: 40%;
         }
 
-        .purpleBox {
+        .commentBox {
           bottom: auto;
           left: -10%;
           top: 70%;
         }
 
-        .mainImg {
+        .iFrame-video {
           width: 100%;
         }
 
@@ -699,7 +690,7 @@
           margin-left: 0px;
         }
 
-        .mainImg {
+        .iFrame-video {
           width: 100%;
           margin-top: 0px;
           margin-right: 0px;
@@ -715,7 +706,7 @@
           width: 100%;
         }
 
-        .purpleBox {
+        .commentBox {
           position: static;
         }
 
@@ -740,7 +731,7 @@
           position: static;
         }
 
-        .mainImg {
+        .iFrame-video {
           margin-top: 0px;
           margin-right: 0px;
           margin-bottom: 0px;
@@ -751,7 +742,7 @@
           position: relative;
         }
 
-        .purpleBox {
+        .commentBox {
           margin-top: 0px;
           margin-right: 0px;
           margin-bottom: 0px;
@@ -779,7 +770,7 @@
           max-width: 100%;
         }
 
-        .mainImg {
+        .iFrame-video {
           width: 100%;
         }
 
@@ -829,7 +820,7 @@
           position: static;
         }
 
-        .purpleBox {
+        .commentBox {
           position: static;
         }
 
@@ -1063,16 +1054,16 @@
         color: white !important;
         padding: 100px 0px;
         text-align: center;
-        background: #000428; /* fallback for old browsers */
+        background: #265073; /* fallback for old browsers */
         background: -webkit-linear-gradient(
           to right,
-          #004e92,
-          #000428
+          #2d9596,
+          #265073
         ); /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(
           to right,
-          #004e92,
-          #000428
+          #2d9596,
+          #265073
         ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       }
 
@@ -1483,11 +1474,17 @@
               <div class="responsive-container-block bigContainer">
                 <div class="responsive-container-block Container bottomContainer">
                   <div class="ultimateImg">
-                    <img
-                      class="mainImg"
-                      src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/mp4.svg"
-                    />
-                    <div class="purpleBox">
+                    <iframe
+                      class="iFrame-video"
+                      width="700"
+                      height="400"
+                      src="https://www.youtube.com/embed/7A1q7v4btbk?si=wnlhGcZQKfyARQSM"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen
+                    ></iframe>
+                    <div class="commentBox">
                       <p class="purpleText">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Eget purus lectus viverra in semper nec pretium mus.
